@@ -5,19 +5,17 @@ class UsersController < ApplicationController
 
   def index
     @groupmessage = Groupmessage.new
-    
   #  @groupmessages = Groupmessage.all
     #binding.pry
+      PrivatePub.publish_to "users/onlineusers",:user_id => "#{current_user.id}"
     #  @users = User.where.not("id = ?",current_user.id).order("created_at DESC")
-    if user_signed_in?
-      current_user.update_attributes(status:true)
-      @users = User.online_users_list
-      @onlineusers = @users-[current_user]  
+      #current_user.update_attributes(status:true)
+      #@users = User.online_users_list
+      @users= User.all
+      @onlineusers = @users-[current_user]
       @conversations = Conversation.involving(current_user).order("created_at DESC")
-      
-    end
   end
-  
+
    def list_of_users
      @userslist=User.all
    end
