@@ -1,0 +1,16 @@
+I"<(function() {
+  $(document).ready(function() {
+    var refreshingPartial;
+    refreshingPartial = function() {
+      $.ajax({
+        url: '/users/onlineusers',
+        type: 'GET',
+        dataType: 'script'
+      });
+    };
+    refreshingPartial();
+    setInterval(refreshingPartial, 15000);
+  });
+
+}).call(this);
+:ET
